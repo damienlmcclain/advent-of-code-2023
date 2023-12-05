@@ -46,16 +46,16 @@ def sum_possible_games(possible_games):
 def return_powers(parsed_inputs):
     summed_powers = 0
     for min_color_cubes in parsed_inputs.values():
-        summed_powers += min_color_cubes['blue'] * min_color_cubes['red'] * min_color_cubes['green']
+        summed_powers += min_color_cubes['blue'] * min_color_cubes[
+            'red'] * min_color_cubes['green']
     return summed_powers
 
 
 requirements = {'blue': 14, 'red': 12, 'green': 13}
-parsed_input = parse_input('inputs/day_2_input.txt')
+parsed_input = parse_input('tests/fixtures/day_02_input.txt')
 possible_games = return_possible_games(parsed_input, requirements)
 game_sum = sum_possible_games(possible_games)
 print(f'The answer to day two, part one is {game_sum}')
 
 total_powers = return_powers(parsed_input)
 print(f'The answer to day two, part two is {total_powers}')
-

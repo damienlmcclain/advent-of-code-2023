@@ -42,8 +42,18 @@ def part_two_find_nums(filename):
     with open(filename, encoding='utf-8') as file:
         input_data = file.read().split('\n')
     all_ints = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    all_nums_as_strs = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7,
-                        'eight': 8, 'nine': 9}
+    all_nums_as_strs = {
+        'zero': 0,
+        'one': 1,
+        'two': 2,
+        'three': 3,
+        'four': 4,
+        'five': 5,
+        'six': 6,
+        'seven': 7,
+        'eight': 8,
+        'nine': 9
+    }
     all_line_ints = []
     for line in input_data:
         str_num = ''
@@ -89,9 +99,3 @@ def find_calibration_value(calibration_values_list):
         calibration_value_sum += calibration_value
 
     return calibration_value_sum
-
-part_one_ints = part_one_find_ints(filename='inputs/day_1_input.txt')
-print(f'The answer to day one, part one is {find_calibration_value(part_one_ints)}')
-
-part_two_ints = part_two_find_nums(filename='inputs/day_1_input.txt')
-print(f'The answer to day one, part two is {find_calibration_value(part_two_ints)}')
