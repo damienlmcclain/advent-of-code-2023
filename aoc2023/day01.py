@@ -90,8 +90,9 @@ def find_calibration_value(calibration_values_list):
 
     return calibration_value_sum
 
-part_one_ints = part_one_find_ints(filename='inputs/day_1_input.txt')
-print(f'The answer to day one, part one is {find_calibration_value(part_one_ints)}')
 
-part_two_ints = part_two_find_nums(filename='inputs/day_1_input.txt')
-print(f'The answer to day one, part two is {find_calibration_value(part_two_ints)}')
+# part_one_ints = part_one_find_ints(filename='tests/fixtures/day_01_input.txt')
+# print(f'The answer to day one, part one is {find_calibration_value(part_one_ints)}')
+#
+# part_two_ints = part_two_find_nums(filename='tests/fixtures/day_01_input.txt')
+# print(f'The answer to day one, part two is {find_calibration_value(part_two_ints)}')

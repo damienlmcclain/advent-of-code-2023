@@ -51,7 +51,7 @@ def return_powers(parsed_inputs):
 
 
 requirements = {'blue': 14, 'red': 12, 'green': 13}
-parsed_input = parse_input('inputs/day_2_input.txt')
+parsed_input = parse_input('tests/fixtures/day_02_input.txt')
 possible_games = return_possible_games(parsed_input, requirements)
 game_sum = sum_possible_games(possible_games)
 print(f'The answer to day two, part one is {game_sum}')
