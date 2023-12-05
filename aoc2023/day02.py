@@ -46,7 +46,8 @@ def sum_possible_games(possible_games):
 def return_powers(parsed_inputs):
     summed_powers = 0
     for min_color_cubes in parsed_inputs.values():
-        summed_powers += min_color_cubes['blue'] * min_color_cubes['red'] * min_color_cubes['green']
+        summed_powers += min_color_cubes['blue'] * min_color_cubes[
+            'red'] * min_color_cubes['green']
     return summed_powers
 
 
@@ -58,4 +59,3 @@ print(f'The answer to day two, part one is {game_sum}')
 
 total_powers = return_powers(parsed_input)
 print(f'The answer to day two, part two is {total_powers}')
-
