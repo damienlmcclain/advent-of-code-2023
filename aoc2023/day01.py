@@ -3,26 +3,31 @@ import os
 import re
 
 
-def input_parser(day=None, year=None, session_cookie=None, filename=None):
+def input_parser(day: int = None,
+                 year: int = None,
+                 session_cookie: str = None,
+                 filename: str = None) -> list:
     """
     Finds the ints in each line and returns them as a list of lists.
 
     Parameters
     ----------
-    day: int
+    day
         The day to pull data for.
-    year: int
+    year
         The year to pull data for.
-    session_cookie: str
+    session_cookie
         The AOC session cookie for pulling data.
-    filename: str
-        If input, the name of the file to parse instead of using day/year.
+    filename
+        If input, the name of the file to parse instead of pulling data using
+        the day/year.
 
     Returns
     -------
     list of str
         A list of each line in the pulled data or file as a str.
     """
+
     if filename:
         with open(filename, encoding='utf-8') as file:
             input_data = file.read().split('\n')
@@ -37,14 +42,14 @@ def input_parser(day=None, year=None, session_cookie=None, filename=None):
     return input_data
 
 
-def part_one_find_ints(input_data):
+def part_one_find_ints(input_data: list) -> list:
     """
     Finds the calibration value ints in each line and returns them as a list
     of lists.
 
     Parameters
     ----------
-    input_data: list of str
+    input_data
         The list of calibration values to parse.
 
     Returns
@@ -52,6 +57,7 @@ def part_one_find_ints(input_data):
     list of lists
         A list of lists containing the calibration value ints on each line.
     """
+
     all_nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     all_line_ints = []
     for line in input_data:
@@ -60,21 +66,23 @@ def part_one_find_ints(input_data):
     return all_line_ints
 
 
-def part_two_find_nums(input_data):
+def part_two_find_nums(input_data: list) -> list:
     """
     Finds the numbers in each line, either as ints or written out as strs,
     and returns them as a list of lists.
 
     Parameters
     ----------
-    input_data: list of str
+    input_data
         The list of calibration values to parse.
 
     Returns
     -------
     list of lists
-        A list of lists containing the ints on each line.
+        A list of lists containing the ints on each line, sorted by their
+        index on the line.
     """
+
     all_ints = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     all_nums_as_strs = {
         'zero': 0,
@@ -91,11 +99,9 @@ def part_two_find_nums(input_data):
     all_line_ints = []
     for line in input_data:
         line_nums = {}
-        line_index = 0
-        for character in line:
+        for line_index, character in enumerate(line):
             if character in all_ints:
                 line_nums[line_index] = int(character)
-            line_index += 1
         for key, value in all_nums_as_strs.items():
             for index in re.finditer(key, line):
                 line_nums[int(index.start())] = value
@@ -107,27 +113,28 @@ def part_two_find_nums(input_data):
     return all_line_ints
 
 
-def find_calibration_value(part,
-                           day=None,
-                           year=None,
-                           session_cookie=None,
-                           filename=None):
+def find_calibration_value(part: int,
+                           day: int = None,
+                           year: int = None,
+                           session_cookie: str = None,
+                           filename: str = None) -> int:
     """
     Given a list of lists of values, finds the original elf calibration values
     and sums them.
 
     Parameters
     ----------
-    part: int
+    part
         Part one or two for the day. Determines how the data is parsed.
-    day: int
+    day
         The day to pull data for.
-    year: int
+    year
         The year to pull data for.
-    session_cookie: str
+    session_cookie
         The AOC session cookie for pulling data.
-    filename: str
-        If input, the name of the file to parse instead of using day/year.
+    filename
+        If input, the name of the file to parse instead of pulling data using
+        the day/year.
 
     Returns
     ----------
