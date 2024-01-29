@@ -24,8 +24,7 @@ def input_parser(day: int = None,
 
     Returns
     -------
-    list of str
-        A list of each line in the pulled data or file as a str.
+    A list of each line in the pulled data or file as a str.
     """
 
     if filename:
@@ -54,8 +53,7 @@ def part_one_find_ints(input_data: list) -> list:
 
     Returns
     -------
-    list of lists
-        A list of lists containing the calibration value ints on each line.
+    A list of lists containing the calibration value ints on each line.
     """
 
     all_nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -78,9 +76,8 @@ def part_two_find_nums(input_data: list) -> list:
 
     Returns
     -------
-    list of lists
-        A list of lists containing the ints on each line, sorted by their
-        index on the line.
+    A list of lists containing the ints on each line, sorted by their
+    index on the line.
     """
 
     all_ints = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -138,8 +135,7 @@ def find_calibration_value(part: int,
 
     Returns
     ----------
-    int
-        The sum of the correct calibration values.
+    The sum of the correct calibration values.
     """
     if filename:
         massaged_input_data = input_parser(filename=filename)
