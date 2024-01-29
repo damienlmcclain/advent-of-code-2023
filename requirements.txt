@@ -1,0 +1,4 @@
+advent-of-code-data==1.3.2
+flake8==3.9.2
+pytest==7.4.3
+yapf==0.40.2
