@@ -1,6 +1,46 @@
-def parse_input(filename):
-    with open(filename, encoding='utf-8') as file:
-        input_data = file.read().split('\n')
+import aocd
+import os
+from typing import Dict
+
+
+def parse_input(day: int = None,
+                year: int = None,
+                session_cookie: str = None,
+                filename: str = None) -> Dict[int, Dict[str, int]] or str:
+    """
+    Takes in a str of game information and returns that information parsed into
+    a dict of game number to a dict of the maximum number of cubes of each
+    color were revealed in a game.
+
+    Parameters
+    ----------
+    day
+        The day to pull data for.
+    year
+        The year to pull data for.
+    session_cookie
+        The AOC session cookie for pulling data.
+    filename
+        If input, the name of the file to parse instead of pulling data using
+        the day/year.
+
+    Returns
+    -------
+
+    """
+
+    if filename:
+        with open(filename, encoding='utf-8') as file:
+            input_data = file.read().split('\n')
+    elif day and year and session_cookie:
+        os.environ['AOC_SESSION'] = session_cookie
+        data = aocd.get_data(day=day, year=year)
+        input_data = data.split('\n')
+    else:
+        return 'Please enter a valid combination of inputs: either a ' \
+               'filename to pull from locally or a day, year, and ' \
+               'session_cookie.'
+
     parsed_data_dict = {}
     for game_str in input_data:
         # find the game number
@@ -22,30 +62,50 @@ def parse_input(filename):
     return parsed_data_dict
 
 
-def return_possible_games(parsed_inputs, requirements):
-    possible_games = []
-    for game_idx, max_color_cubes in parsed_inputs.items():
-        had_to_break = False
-        for color, number in max_color_cubes.items():
-            if number > requirements[color]:
-                had_to_break = True
+def determine_possible_games(max_of_each_color=dict,
+                             day: int = None,
+                             year: int = None,
+                             session_cookie: str = None,
+                             filename: str = None) -> int or str:
+    """
+    Takes in a str via various inputs and determines how many games are
+    possible given the maximum number of colors per draw.
+
+    Parameters
+    ----------
+    max_of_each_color
+        The maximum number of each color that can be drawn in a single draw.
+    day
+        The day to pull data for.
+    year
+        The year to pull data for.
+    session_cookie
+        The AOC session cookie for pulling data.
+    filename
+        If input, the name of the file to parse instead of pulling data using
+        the day/year.
+
+    Returns
+    -------
+    A str if there is an error with the inputs or an int of the sum of the
+    number of each passing games.
+    """
+
+    massaged_inputs = parse_input(day=day,
+                                  year=year,
+                                  session_cookie=session_cookie,
+                                  filename=filename)
+
+    sum_of_passing_games = 0
+    for game_num, color_info in massaged_inputs.items():
+        game_passes = True
+        for color, max_in_game in color_info.items():
+            if max_in_game > max_of_each_color[color]:
+                # if any are greater than the max, the game is impossible
+                game_passes = False
                 break
-        # if it didn't have to break, it must be good
-        if had_to_break is False:
-            possible_games.append(game_idx)
-    return possible_games
 
+        if game_passes:
+            sum_of_passing_games += game_num
 
-def sum_possible_games(possible_games):
-    game_sum = 0
-    for game in possible_games:
-        game_sum += game
-    return game_sum
-
-
-def return_powers(parsed_inputs):
-    summed_powers = 0
-    for min_color_cubes in parsed_inputs.values():
-        summed_powers += min_color_cubes['blue'] * min_color_cubes[
-            'red'] * min_color_cubes['green']
-    return summed_powers
+    return sum_of_passing_games

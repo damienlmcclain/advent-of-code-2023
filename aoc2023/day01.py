@@ -3,10 +3,10 @@ import os
 import re
 
 
-def input_parser(day: int = None,
-                 year: int = None,
-                 session_cookie: str = None,
-                 filename: str = None) -> list:
+def parse_input(day: int = None,
+                year: int = None,
+                session_cookie: str = None,
+                filename: str = None) -> list or str:
     """
     Finds the ints in each line and returns them as a list of lists.
 
@@ -114,7 +114,7 @@ def find_calibration_value(part: int,
                            day: int = None,
                            year: int = None,
                            session_cookie: str = None,
-                           filename: str = None) -> int:
+                           filename: str = None) -> int or str:
     """
     Given a list of lists of values, finds the original elf calibration values
     and sums them.
@@ -135,14 +135,14 @@ def find_calibration_value(part: int,
 
     Returns
     ----------
-    The sum of the correct calibration values.
+    The sum of the correct calibration values or a str error.
     """
     if filename:
-        massaged_input_data = input_parser(filename=filename)
+        massaged_input_data = parse_input(filename=filename)
     elif day and year and session_cookie:
-        massaged_input_data = input_parser(day=day,
-                                           year=year,
-                                           session_cookie=session_cookie)
+        massaged_input_data = parse_input(day=day,
+                                          year=year,
+                                          session_cookie=session_cookie)
     elif not day or not year:
         return 'You have not entered either a filename or a day and year ' \
                'combination. Please enter one of the two and retry.'
