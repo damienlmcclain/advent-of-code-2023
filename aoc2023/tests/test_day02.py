@@ -41,8 +41,7 @@ class Test(TestCase):
     def test_determine_possible_games(self):
         res = determine_possible_games(
             max_of_each_color=self.max_allowed_colors,
-            filename='tests/fixtures/day_02_easy_input.txt'
-        )
+            filename='tests/fixtures/day_02_easy_input.txt')
         self.assertEqual(res, 8)
 
     def test_determine_possible_games_full_input(self):
@@ -50,6 +49,5 @@ class Test(TestCase):
             max_of_each_color=self.max_allowed_colors,
             day=2,
             year=2023,
-            session_cookie=AOCD_SESSION_COOKIE
-        )
+            session_cookie=AOCD_SESSION_COOKIE)
         self.assertEqual(res, 2679)

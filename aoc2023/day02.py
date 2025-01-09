@@ -3,12 +3,10 @@ import os
 from typing import Dict
 
 
-def parse_input(
-        day: int = None,
-        year: int = None,
-        session_cookie: str = None,
-        filename: str = None
-) -> Dict[int, Dict[str, int]] or str:
+def parse_input(day: int = None,
+                year: int = None,
+                session_cookie: str = None,
+                filename: str = None) -> Dict[int, Dict[str, int]] or str:
     """
     Takes in a str of game information and returns that information parsed into
     a dict of game number to a dict of the maximum number of cubes of each
@@ -64,13 +62,11 @@ def parse_input(
     return parsed_data_dict
 
 
-def determine_possible_games(
-        max_of_each_color=dict,
-        day: int = None,
-        year: int = None,
-        session_cookie: str = None,
-        filename: str = None
-        ) -> int or str:
+def determine_possible_games(max_of_each_color=dict,
+                             day: int = None,
+                             year: int = None,
+                             session_cookie: str = None,
+                             filename: str = None) -> int or str:
     """
     Takes in a str via various inputs and determines how many games are
     possible given the maximum number of colors per draw.
@@ -95,12 +91,10 @@ def determine_possible_games(
     number of each passing games.
     """
 
-    massaged_inputs = parse_input(
-        day=day,
-        year=year,
-        session_cookie=session_cookie,
-        filename=filename
-    )
+    massaged_inputs = parse_input(day=day,
+                                  year=year,
+                                  session_cookie=session_cookie,
+                                  filename=filename)
 
     sum_of_passing_games = 0
     for game_num, color_info in massaged_inputs.items():
