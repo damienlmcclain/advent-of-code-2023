@@ -1,6 +1,7 @@
 import aocd
+import math
 import os
-from typing import Dict
+from typing import Dict, List
 
 
 def parse_input(day: int = None,
@@ -8,9 +9,8 @@ def parse_input(day: int = None,
                 session_cookie: str = None,
                 filename: str = None) -> Dict[int, Dict[str, int]] or str:
     """
-    Takes in a str of game information and returns that information parsed into
-    a dict of game number to a dict of the maximum number of cubes of each
-    color were revealed in a game.
+    Intakes a str of game information and returns it as a list of strs for each
+    game.
 
     Parameters
     ----------
@@ -26,7 +26,7 @@ def parse_input(day: int = None,
 
     Returns
     -------
-
+    A list of str where each str is the draw information for each game.
     """
 
     if filename:
@@ -41,6 +41,24 @@ def parse_input(day: int = None,
                'filename to pull from locally or a day, year, and ' \
                'session_cookie.'
 
+    return input_data
+
+
+def create_cube_dict(input_data: List[str]) -> Dict[int, Dict[str, int]]:
+    """
+    Returns the given str parsed into a dict of game number to a dict of the maximum number of cubes of each
+    color were revealed in a game.
+
+    Parameters
+    ----------
+    input_data
+        A list of str where each str is the draw information for each game.
+
+    Returns
+    -------
+    The input data broken down into a dict of
+        {game number: {color name: number drawn of that color}}
+    """
     parsed_data_dict = {}
     for game_str in input_data:
         # find the game number
@@ -59,10 +77,12 @@ def parse_input(day: int = None,
                 if draw_dict[color_name] < color_number:
                     draw_dict[color_name] = color_number
         parsed_data_dict[game_idx] = draw_dict
+
     return parsed_data_dict
 
 
-def determine_possible_games(max_of_each_color=dict,
+def determine_possible_games(max_of_each_color: Dict[str, int],
+                             sum_or_product: str,
                              day: int = None,
                              year: int = None,
                              session_cookie: str = None,
@@ -75,6 +95,8 @@ def determine_possible_games(max_of_each_color=dict,
     ----------
     max_of_each_color
         The maximum number of each color that can be drawn in a single draw.
+    sum_or_product
+        Whether to add or multiply the passing games.
     day
         The day to pull data for.
     year
@@ -87,25 +109,32 @@ def determine_possible_games(max_of_each_color=dict,
 
     Returns
     -------
-    A str if there is an error with the inputs or an int of the sum of the
-    number of each passing games.
+    A str if there is an error with the inputs or
+        an int of the sum of the number of each passing games if sum_or_product
+        is set to sum or
+        an int of the product of the maximum number of color cubes
+        for each game
+
     """
 
     massaged_inputs = parse_input(day=day,
                                   year=year,
                                   session_cookie=session_cookie,
                                   filename=filename)
+    color_dict = create_cube_dict(input_data=massaged_inputs)
 
-    sum_of_passing_games = 0
-    for game_num, color_info in massaged_inputs.items():
-        game_passes = True
-        for color, max_in_game in color_info.items():
-            if max_in_game > max_of_each_color[color]:
-                # if any are greater than the max, the game is impossible
-                game_passes = False
-                break
+    games_total = 0
+    for game_num, color_info in color_dict.items():
+        if sum_or_product == 'sum':
+            game_passes = True
+            for color, max_in_game in color_info.items():
+                if max_in_game > max_of_each_color[color]:
+                    # if any are greater than the max, the game is impossible
+                    game_passes = False
+                    break
+            if game_passes:
+                games_total += game_num
+        elif sum_or_product == 'product':
+            games_total += math.prod(color_info.values())
 
-        if game_passes:
-            sum_of_passing_games += game_num
-
-    return sum_of_passing_games
+    return games_total
