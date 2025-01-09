@@ -5,11 +5,7 @@ from aoc2023.session_cookie import AOCD_SESSION_COOKIE
 
 
 class Test(TestCase):
-    max_allowed_colors = {
-        'red': 12,
-        'green': 13,
-        'blue': 14
-    }
+    max_allowed_colors = {'red': 12, 'green': 13, 'blue': 14}
 
     def test_parse_input(self):
         res = parse_input(filename='tests/fixtures/day_02_easy_input.txt')
