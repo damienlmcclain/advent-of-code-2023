@@ -6,7 +6,7 @@ import re
 def input_parser(day: int = None,
                  year: int = None,
                  session_cookie: str = None,
-                 filename: str = None) -> list:
+                 filename: str = None) -> list or str:
     """
     Finds the ints in each line and returns them as a list of lists.
 

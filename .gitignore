@@ -2,3 +2,4 @@
 .DS_Store
 session_cookie.py
 Pipfile.lock
+**/__pycache__/
