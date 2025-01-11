@@ -1,6 +1,7 @@
 from unittest import TestCase
 
-from aoc2023.day02 import create_cube_dict, determine_possible_games, parse_input
+from aoc2023.day_solutions.day02 import (create_cube_dict,
+                                         determine_possible_games)
 from aoc2023.session_cookie import AOCD_SESSION_COOKIE
 
 
@@ -13,10 +14,6 @@ class Test(TestCase):
         'Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red',
         'Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green'
     ]
-
-    def test_parse_input(self):
-        res = parse_input(filename='tests/fixtures/day_02_easy_input.txt')
-        self.assertEqual(res, self.parsed_easy_input)
 
     def test_create_cube_dict(self):
         res = create_cube_dict(input_data=self.parsed_easy_input)
@@ -53,7 +50,7 @@ class Test(TestCase):
         res = determine_possible_games(
             max_of_each_color=self.max_allowed_colors,
             sum_or_product='sum',
-            filename='tests/fixtures/day_02_easy_input.txt')
+            filename='day_solutions/tests/fixtures/day_02_easy_input.txt')
         self.assertEqual(res, 8)
 
     def test_determine_possible_games_sum_full_input(self):
@@ -69,7 +66,7 @@ class Test(TestCase):
         res = determine_possible_games(
             max_of_each_color=self.max_allowed_colors,
             sum_or_product='product',
-            filename='tests/fixtures/day_02_easy_input.txt')
+            filename='day_solutions/tests/fixtures/day_02_easy_input.txt')
         self.assertEqual(res, 2286)
 
     def test_determine_possible_games_product_full_input(self):
