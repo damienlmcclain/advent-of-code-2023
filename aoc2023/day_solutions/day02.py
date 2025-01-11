@@ -1,47 +1,7 @@
-import aocd
 import math
-import os
 from typing import Dict, List
 
-
-def parse_input(day: int = None,
-                year: int = None,
-                session_cookie: str = None,
-                filename: str = None) -> Dict[int, Dict[str, int]] or str:
-    """
-    Intakes a str of game information and returns it as a list of strs for each
-    game.
-
-    Parameters
-    ----------
-    day
-        The day to pull data for.
-    year
-        The year to pull data for.
-    session_cookie
-        The AOC session cookie for pulling data.
-    filename
-        If input, the name of the file to parse instead of pulling data using
-        the day/year.
-
-    Returns
-    -------
-    A list of str where each str is the draw information for each game.
-    """
-
-    if filename:
-        with open(filename, encoding='utf-8') as file:
-            input_data = file.read().split('\n')
-    elif day and year and session_cookie:
-        os.environ['AOC_SESSION'] = session_cookie
-        data = aocd.get_data(day=day, year=year)
-        input_data = data.split('\n')
-    else:
-        return 'Please enter a valid combination of inputs: either a ' \
-               'filename to pull from locally or a day, year, and ' \
-               'session_cookie.'
-
-    return input_data
+from aoc2023.utils import parse_input
 
 
 def create_cube_dict(input_data: List[str]) -> Dict[int, Dict[str, int]]:
